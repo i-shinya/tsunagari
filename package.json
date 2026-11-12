@@ -1,0 +1,67 @@
+{
+  "name": "tsunagari",
+  "version": "0.1.0",
+  "description": "日本語の Markdown の文章で、前の文から話がつながっていない所を見つけるコマンドラインの道具",
+  "keywords": [
+    "japanese",
+    "markdown",
+    "writing",
+    "bert",
+    "cli"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-shinya/tsunagari.git"
+  },
+  "homepage": "https://github.com/i-shinya/tsunagari#readme",
+  "bugs": {
+    "url": "https://github.com/i-shinya/tsunagari/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "tsunagari": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "workspaces": [
+    "web"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node dist/stamp.js",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p web",
+    "lint": "biome check",
+    "format": "biome format --write",
+    "test": "vitest run --dir src && vitest run --dir web",
+    "bench": "node dist/bench.js",
+    "prepare": "npm run build",
+    "prepack": "node src/prepack.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@types/adm-zip": "^0.5.8",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.8.1",
+    "adm-zip": "0.6.1",
+    "lindera-wasm": "6.2.0",
+    "onnxruntime-node": "1.31.1"
+  },
+  "bundleDependencies": [
+    "@clack/prompts",
+    "adm-zip",
+    "lindera-wasm",
+    "onnxruntime-node"
+  ]
+}
