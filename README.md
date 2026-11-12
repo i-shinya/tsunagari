@@ -56,7 +56,10 @@ tsunagari draft.md --provider jev
 | `--html <out.html>` | 色付きの結果を HTML に書き出す |
 | `--include-lists` | 箇条書きの項目と項目の境目も判定する |
 | `--provider bert,jev` | 判定に使うものを選ぶ。既定は `bert` |
-| `--connectives` | 接続詞やつなぎの言葉が前後の関係に合っているかを `jev` で判定する。鍵と利用料は `jev` と同じ。スコアは `scores` の `jev` に入る |
+| `--connectives` | 接続詞やつなぎの言葉が前後の関係に合っているかを `jev` で判定する。文章を TypeSafe に送り、鍵と利用料は `jev` と同じ。スコアは `scores` の `jev` に入る |
+| `--connectives-choice` | `--connectives` と同じく `jev` で判定し、文頭の接続詞を伏せて、入る関係を 11 の選択肢から選ばせる。`--connectives` とは同時に使えない |
+| `--context <範囲>` | `jev` に渡す前後の文の範囲を選ぶ。既定は全文の `full-once`。ほかに `all`・`s<N>`・`para`・`sec` など |
+| `--bert-weights fp16\|q8` | `bert` の重みを選ぶ。既定は `fp16`、`q8` は軽量の版 |
 | `--dry-run` | 判定せず、選んだモデルに送る量と費用の見積もりを出す。`bert` の費用は 0 |
 | `--max-usd <額>` | `jev` に使う費用の上限を決める |
 | `--version` | 入っているバージョンを出す |
@@ -105,6 +108,8 @@ npm test
 不具合の報告や要望は、GitHub の issue で受け付けます。
 
 ## ライセンス
+
+Copyright 2026 i-shinya
 
 [Apache License 2.0](LICENSE) です。npm の配布物に同梱する `onnxruntime-node` のバイナリ(`DirectML.dll` を含む)は別の条件で、[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) にあります。
 

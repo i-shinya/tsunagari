@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    # 開発側(非公開)では回さない。docs/architecture.md「検査」参照
+    if: ${{ github.repository == 'i-shinya/tsunagari' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.1
+      - run: |
+          curl -fsSL https://github.com/AikidoSec/safe-chain/releases/download/1.5.27/install-safe-chain.sh -o "$RUNNER_TEMP/install-safe-chain.sh"
+          echo "600ebddcb3aaf1fd53653a8d7985df44528722c0f5ee7eb9fff86f26a1a4e5a8  $RUNNER_TEMP/install-safe-chain.sh" | sha256sum -c -
+          sh "$RUNNER_TEMP/install-safe-chain.sh" --ci
+      # installer は setup-ci が落ちても exit 0 で終わる
+      - run: test "$(command -v npm)" = "$HOME/.safe-chain/shims/npm"
+      - run: npm ci --ignore-scripts
+      - run: npm audit signatures
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
