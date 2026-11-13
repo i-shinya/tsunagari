@@ -11,8 +11,7 @@
       "web/**",
       "package.json",
       "tsconfig*.json",
-      "biome.json",
-      "!!.agents"
+      "biome.json"
     ]
   },
   "formatter": {
