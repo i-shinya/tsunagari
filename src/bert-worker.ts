@@ -29,7 +29,7 @@ function die(code: number, why: string): never {
 
 const PROVIDERS = {
   dml: ["dml"],
-  coreml: [{ name: "coreml", coreMlFlags: 0x10 }],
+  webgpu: ["webgpu"],
   cuda: ["cuda"],
   cpu: ["cpu"],
 };
