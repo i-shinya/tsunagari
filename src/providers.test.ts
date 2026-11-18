@@ -3,12 +3,12 @@ import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, expect, test, vi } from "vitest";
-import { SETTINGS } from "./accuracy.ts";
 import { parse } from "./markdown.ts";
 import {
   type Cache,
   contextOf,
   estimate,
+  MODE_NAMES,
   readKeys,
   score,
 } from "./providers.ts";
@@ -390,13 +390,16 @@ async function sentBodies(run: () => Promise<unknown>) {
   return bodies;
 }
 
-const OLD = Object.entries(SETTINGS).filter(
-  ([n]) => n.includes(":") && !n.includes("full"),
+const OLD = MODE_NAMES.flatMap((mode) =>
+  "all ctx2 s1 s1-ba s2 s2-ba s3 s3-ba s5 s5-ba para para-ba sec sec-ba sec2 sec2-ba"
+    .split(" ")
+    .filter((r) => mode === "default" || r !== "ctx2")
+    .map((r) => [`${mode}:${r}`, mode, contextOf(r)] as const),
 );
 test("score は範囲の付いた 46 の設定のどれでも、jev に固定した本文を送る", async () => {
   expect(OLD).toHaveLength(46);
   const all: string[] = [];
-  for (const [s, { mode, context }] of OLD) {
+  for (const [s, mode, context] of OLD) {
     const bodies = await sentBodies(() =>
       score(pinDoc, "jev", ["k"], {}, mode, context),
     );

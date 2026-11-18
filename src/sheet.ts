@@ -539,7 +539,7 @@ export function client() {
   };
 }
 
-/** 外枠 .tg の下に閉じた CSS。色と字は DESIGN.md の frontmatter */
+/** 外枠 .tg の下に閉じた CSS */
 export const SHEET_CSS = `
 .tg{--paper:#fdfdfb;--paper-2:#f6f5f1;--paper-3:#eeede7;--field:#fff;--ink:#202020;--ink-2:#4f4d48;--ink-3:#686762;--rule:#e3e2dc;--rule-2:#cfcdc6;--shu:#d9381e;--shu-ink:#b42e18;--blue:#2b59c3;--blue-wash:rgb(43 89 195/.09);--up:#2f6b3a;--f-body:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;--f-ui:"Noto Sans JP","Hiragino Sans","Yu Gothic UI",system-ui,sans-serif;--ease:cubic-bezier(.23,1,.32,1);--gut:36px;--mar:64px;--padl:16px;--tg-sb:0px;display:grid;grid-template-rows:auto minmax(0,1fr);min-height:0;background:var(--paper);color:var(--ink);font:14px/1.6 var(--f-ui);color-scheme:light;-webkit-text-size-adjust:100%}
 .tg *{box-sizing:border-box}

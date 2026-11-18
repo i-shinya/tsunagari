@@ -30,7 +30,8 @@ function setup(weights: Weights, cuda: boolean): number {
 function detected(nvidia: boolean): string {
   if (process.platform === "win32")
     return "Windows: DirectML の GPU で動きます";
-  if (process.platform === "darwin") return "Mac: CoreML の GPU で動きます";
+  if (process.platform === "darwin")
+    return "Mac: Apple Silicon なら WebGPU の GPU で動きます。Intel の Mac では動きません";
   if (process.arch !== "x64")
     return "Linux: この CPU では CUDA を用意できないので CPU で動きます";
   if (nvidia) return "Linux: NVIDIA の GPU が見つかりました";
@@ -57,7 +58,7 @@ export async function runInit(
   }
   if (!process.stdin.isTTY || !process.stderr.isTTY) {
     console.error(
-      "tsunagari init は端末で打つ。スクリプトからは --accept-nvidia-eula を付ける",
+      "tsunagari init は端末で実行してください。スクリプトからは --accept-nvidia-eula を付けてください",
     );
     return 2;
   }
