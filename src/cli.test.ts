@@ -420,7 +420,7 @@ test.each([
     status: 2,
     stderr: "Usage",
   },
-  { args: ["init"], status: 2, stderr: "端末で打つ" },
+  { args: ["init"], status: 2, stderr: "端末で実行してください" },
 ])("$args は $status で終わる", ({ args, status, stderr }) => {
   const r = spawnSync(process.execPath, [cli, ...args], {
     encoding: "utf8",
@@ -466,7 +466,11 @@ test.runIf(linuxX64).each([
   expect(r.stderr).toContain(c.stderr);
 });
 test.runIf(linuxX64).each([
-  { name: "用意が無い", HOME: home, want: "GPU を使うなら tsunagari init" },
+  {
+    name: "用意が無い",
+    HOME: home,
+    want: "GPU を使うには tsunagari init を実行してください",
+  },
   { name: "用意がある", HOME: readyHome, want: "GPU(cuda)で動かせない" },
 ])(
   "NVIDIA のある Linux で CUDA の$name と案内か起動の跡を出して CPU で動く",

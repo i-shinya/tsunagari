@@ -12,7 +12,7 @@ test("ORT_VERSION は package.json の onnxruntime-node の固定した版と同
 
 test.each([
   { platform: "win32", cuda: false, want: "dml" },
-  { platform: "darwin", cuda: false, want: "coreml" },
+  { platform: "darwin", cuda: false, want: "webgpu" },
   { platform: "linux", cuda: false, want: "cpu" },
   { platform: "linux", cuda: true, want: "cuda" },
 ] as const)(

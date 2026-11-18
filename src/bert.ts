@@ -7,7 +7,7 @@ import { cudaDir, cudaReady, hasNvidia, libsOf } from "./bert-cuda.ts";
 import type { Weights } from "./bert-files.ts";
 import type { Doc } from "./markdown.ts";
 
-export type Backend = "dml" | "coreml" | "cuda" | "cpu";
+export type Backend = "dml" | "webgpu" | "cuda" | "cpu";
 type Outcome = { code: number | null; why: string; out: unknown };
 
 /** 隣のスクリプトのパス。import.meta.url が .ts なのは src から直接動かす開発の道具のとき */
@@ -24,7 +24,7 @@ export function firstBackend(
   cuda: boolean,
 ): Backend {
   if (platform === "win32") return "dml";
-  if (platform === "darwin") return "coreml";
+  if (platform === "darwin") return "webgpu";
   return platform === "linux" && cuda ? "cuda" : "cpu";
 }
 
@@ -107,7 +107,7 @@ export async function bertScores(
       !ready &&
       hasNvidia()
     )
-      console.error("bert: GPU を使うなら tsunagari init を打つ");
+      console.error("bert: GPU を使うには tsunagari init を実行してください");
     return await judge(
       firstBackend(process.platform, ready),
       pairs.length,
