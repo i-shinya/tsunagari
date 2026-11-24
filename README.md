@@ -81,7 +81,7 @@ tsunagari draft.md --html result.html
 
 ### 別のモデルを使う
 
-判定に使うモデルは `--provider` で選択できます。既定の `bert` のほかに、TypeSafe 社の言語モデル `jev` を使えます。`jev` を使うと文章が TypeSafe に送信され、利用料金がかかります。
+判定に使うモデルは `--provider` で選択できます。既定の `bert` のほかに、TypeSafe 社の決定モデル `jev` を使えます。決定モデルは、問いに文章で答えるのではなく、答えの確率だけを返すモデルです。`jev` を使うと文章が TypeSafe に送信され、利用料金がかかります。
 
 `jev` を使うには、TypeSafe のサイト(typesafe.ai)で API キーを取得します。API キーは環境変数 `TYPESAFE_API_KEY` に設定するか、`~/.config/tsunagari/decision.env` に `TYPESAFE_API_KEY=<API キー>` の形式で記述します。macOS と Linux では、ファイルを作成したあとに `chmod 600 ~/.config/tsunagari/decision.env` を実行し、ほかのユーザーから読めないようにしてください。
 
